@@ -30,13 +30,13 @@ jobs:
           AZURE_REGISTRY_USERNAME: ${{ secrets.AZURE_REGISTRY_USERNAME }}
           AZURE_REGISTRY_PASSWORD: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
         run: |
-          az acr login --name <your-registry-name>
-          docker tag health-metrics <your-registry-name>.azurecr.io/health-metrics:latest
-          docker push <your-registry-name>.azurecr.io/health-metrics:latest
+          az acr login --name nabilainas.azurecr.io
+          docker tag health-metrics nabilainas.azurecr.io/health-metrics:latest
+          docker push nabilainas.azurecr.io/health-metrics:latest
 
       - name: Deploy to Azure App Service
         uses: azure/webapps-deploy@v2
         with:
-          app-name: <your-app-name>
+          app-name: health-metrics-container
           slot-name: production
-          images: <your-registry-name>.azurecr.io/health-metrics:latest
+          images: nabilainas.azurecr.io/health-metrics:latest
