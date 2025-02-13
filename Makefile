@@ -18,7 +18,6 @@ build:
 	docker build -t $(IMAGE_NAME) .
 
 push:
-	az acr login --name nabilainas.azurecr.io -u $AZURE_REGISTRY_USERNAME -p $AZURE_REGISTRY_PASSWORD
 	docker push $(IMAGE_NAME)
 
 run:
