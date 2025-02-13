@@ -12,16 +12,6 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-
-      - name: Install Dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
       - name: Build Docker Image
         run: docker build -t health-metrics .
 
@@ -35,6 +25,11 @@ jobs:
           az acr login --name nabilainas.azurecr.io -u $AZURE_REGISTRY_USERNAME -p $AZURE_REGISTRY_PASSWORD
           docker tag health-metrics nabilainas.azurecr.io/health-metrics:latest
           docker push nabilainas.azurecr.io/health-metrics:latest
+      
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Deploy to Azure App Service
         uses: azure/webapps-deploy@v2
