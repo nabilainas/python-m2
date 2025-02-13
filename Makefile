@@ -1,6 +1,11 @@
 IMAGE_NAME = nabilainas.azurecr.io/health-metrics
 CONTAINER_NAME = health-metrics-container
 
+
+setenv:
+	python -m venv .env
+	source .env/bin/activate
+
 init:
 	@echo "Creating virtual environment..."
 	pip install --upgrade pip
