@@ -30,7 +30,9 @@ jobs:
           AZURE_REGISTRY_USERNAME: ${{ secrets.AZURE_REGISTRY_USERNAME }}
           AZURE_REGISTRY_PASSWORD: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
         run: |
-          az acr login --name nabilainas.azurecr.io
+          echo $AZURE_REGISTRY_USERNAME
+          echo $AZURE_REGISTRY_PASSWORD
+          az acr login --name nabilainas.azurecr.io -u $AZURE_REGISTRY_USERNAME -p $AZURE_REGISTRY_PASSWORD
           docker tag health-metrics nabilainas.azurecr.io/health-metrics:latest
           docker push nabilainas.azurecr.io/health-metrics:latest
 
