@@ -13,18 +13,14 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build Docker Image
-        run: docker build -t health-metrics .
+        run: make build
 
       - name: Push Docker Image to Azure Container Registry
         env:
           AZURE_REGISTRY_USERNAME: ${{ secrets.AZURE_REGISTRY_USERNAME }}
           AZURE_REGISTRY_PASSWORD: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
         run: |
-          echo $AZURE_REGISTRY_USERNAME
-          echo $AZURE_REGISTRY_PASSWORD
-          az acr login --name nabilainas.azurecr.io -u $AZURE_REGISTRY_USERNAME -p $AZURE_REGISTRY_PASSWORD
-          docker tag health-metrics nabilainas.azurecr.io/health-metrics:latest
-          docker push nabilainas.azurecr.io/health-metrics:latest
+          make push
       
       - name: Login to Azure
         uses: azure/login@v1
