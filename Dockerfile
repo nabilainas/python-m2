@@ -5,7 +5,8 @@ FROM python:3.9-slim
 WORKDIR /app
 
 # Copy the application code to the container
-COPY . /app
+COPY ./health-calculator-service /app
+COPY requirements.txt /app
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
