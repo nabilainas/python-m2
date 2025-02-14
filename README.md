@@ -1,37 +1,93 @@
-# Déploiement d'un microservice
+# Health Calculator Service
 
-# Avant propos
+## Description
+Health Calculator Service is a web application that allows users to calculate their Body Mass Index (BMI) and Basal Metabolic Rate (BMR). The application is built using Flask and Docker, and it includes a CI/CD pipeline for automated testing and deployment.
 
-Dans ce petit projet nous avons créer un microservice, nous allons le gérer avec un make file et un docker file, puis on va le déployer sur azure app service
+## Features
+- Calculate BMI based on weight and height.
+- Calculate BMR based on weight, height, age, and gender.
+- Responsive web interface for user interaction.
 
-# Preuve
+## Project Structure
+```
+/health-calculator-service
+|-- app.py
+|-- health_utils.py
+|-- templates
+|   |-- index.html
+|-- static
+|   |-- css
+|   |   |-- styles.css
+|   |-- js
+|       |-- scripts.js
+|-- test.py
+|-- requirements.txt
+|-- Dockerfile
+|-- Makefile
+/.github
+|-- workflows
+|   |-- ci-cd.yml
+.gitignore
+README.md
+```
 
-Dans un premier temps on va déployer un resource group et un container registry
+## Getting Started
 
-![registry](./assets/registry.png)
+### Prerequisites
+- Python 3.9
+- Docker
+- Azure account (for deployment)
 
-Dans un second temps on va déployer l'app service après avoir push l'image avec la commande:
+### Installation
+1. Clone the repository:
+  ```sh
+  git clone https://github.com/yourusername/health-calculator-service.git
+  cd health-calculator-service
+  ```
 
-```bash
+2. Set up a virtual environment and install dependencies:
+  ```sh
+  make setenv
+  source .env/bin/activate
+  make init
+  ```
+
+3. Run the application locally:
+  ```sh
+  make local
+  ```
+
+4. Open your browser and navigate to `http://localhost:5000`.
+
+### Running Tests
+To run the tests locally:
+```sh
+make test
+```
+
+### Docker
+To build and run the Docker container:
+```sh
+make build
+make run
+```
+
+To stop and remove the Docker container:
+```sh
+make stop
+```
+
+To push the Docker image to Azure Container Registry:
+```sh
 make push
 ```
 
-![app_service](./assets/app_service.png)
+### CI/CD Pipeline
+The CI/CD pipeline is configured using GitHub Actions. It includes steps for testing, building, and deploying the application to Azure App Service.
 
-Maintenant on peut tester les commandes avec thunderclient à cette adresse:
-```bash
-https://health-metrics-container-f4a6gyegcabxfqae.francecentral-01.azurewebsites.net/bmi
-https://health-metrics-container-f4a6gyegcabxfqae.francecentral-01.azurewebsites.net/bmr
-```
 
-avec ce body:
-```json
-{
-  "weight": 70,
-  "height": 1.75,
-  "age": 18,
-  "gender": "male"
-}
-```
-
-![thunderclient](./assets/thunderclient.png)
+## Acknowledgements
+- Flask
+- Docker
+- GitHub Actions
+- Azure
